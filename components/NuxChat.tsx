@@ -591,25 +591,16 @@ const NuxChat: React.FC<NuxChatProps> = ({ isOpen, onClose }) => {
             {/* Header */}
             <div className="window-header justify-between bg-turquoise/[0.05] border-b border-turquoise/10 py-2 md:py-3 flex-shrink-0">
                 <div className="flex items-center gap-2 md:gap-3 overflow-hidden">
-                    {/* Logo Multiversa - max 70px height */}
-                    <img
-                        src="/Logotipo.svg"
-                        alt="Multiversa"
-                        className="h-8 md:h-10 max-h-[70px] w-auto object-contain flex-shrink-0"
-                    />
-                    <div className="hidden md:block">
-                        <div className="text-[11px] font-bold text-white tracking-wide font-jakarta flex items-center gap-2">
-                            NUX_AGENT
+                    {/* Avatar de Nux */}
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-turquoise/30 shadow-[0_0_15px_rgba(0,217,255,0.2)] flex-shrink-0">
+                        <img src="/nux-avatar.png" alt="Nux" className="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                        <div className="text-[11px] md:text-xs font-bold text-white tracking-wide font-jakarta flex items-center gap-2">
+                            NUX
                             <span className="px-1.5 py-0.5 rounded bg-turquoise/20 text-turquoise text-[8px] font-mono">v2.5</span>
                         </div>
-                        <div className="text-[8px] micro-copy text-slate-400">PROSPECTION_APP</div>
-                    </div>
-                    {/* Mobile-only compact label */}
-                    <div className="md:hidden">
-                        <div className="text-[10px] font-bold text-white tracking-wide font-jakarta flex items-center gap-1">
-                            NUX
-                            <span className="px-1 py-0.5 rounded bg-turquoise/20 text-turquoise text-[7px] font-mono">v2.5</span>
-                        </div>
+                        <div className="text-[8px] micro-copy text-slate-400">MULTIVERSA AI AGENT</div>
                     </div>
                 </div>
                 <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition-colors flex-shrink-0">
