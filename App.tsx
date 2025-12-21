@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, Zap, Shield, Sparkles, Layout, Calculator, HelpCircle, MessageSquare, ChevronRight, Activity, Terminal, X, Bot } from 'lucide-react';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import AuraBackground from './components/AuraBackground';
@@ -10,6 +11,7 @@ import CalculaTu from './sections/CalculaTu';
 import Pricing from './sections/Pricing';
 import FAQ from './sections/FAQ';
 import NuxChat from './components/NuxChat';
+import Portality from './sections/Portality';
 
 const ChatTrigger = ({ toggleChat, isChatOpen }: { toggleChat: () => void, isChatOpen: boolean }) => {
   return (
@@ -245,20 +247,32 @@ const Footer = () => {
   );
 };
 
-const App: React.FC = () => {
+// Landing Page Component (original layout)
+const LandingPage = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   return (
+    <div className="relative min-h-screen selection:bg-neon-lime selection:text-black font-inter bg-opal-black overflow-hidden pb-32">
+      <AuraBackground />
+      <Header />
+      <Dock />
+      <ChatTrigger toggleChat={() => setIsChatOpen(!isChatOpen)} isChatOpen={isChatOpen} />
+      <NuxChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      <MainContent />
+      <Footer />
+    </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
     <LanguageProvider>
-      <div className="relative min-h-screen selection:bg-neon-lime selection:text-black font-inter bg-opal-black overflow-hidden pb-32">
-        <AuraBackground />
-        <Header />
-        <Dock />
-        <ChatTrigger toggleChat={() => setIsChatOpen(!isChatOpen)} isChatOpen={isChatOpen} />
-        <NuxChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
-        <MainContent />
-        <Footer />
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/portality" element={<Portality />} />
+        </Routes>
+      </BrowserRouter>
     </LanguageProvider>
   );
 };
