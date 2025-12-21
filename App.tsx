@@ -97,15 +97,13 @@ const Header = () => {
   return (
     <header className="fixed top-4 md:top-6 left-0 right-0 z-50 w-[92%] md:w-full max-w-5xl mx-auto px-6 py-3 flex justify-between items-center bg-opal-black/70 backdrop-blur-xl border border-white/10 rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-all">
       <div className="flex items-center gap-3 group cursor-default">
-        <div className="relative w-8 h-8 flex items-center justify-center">
+        <div className="relative flex items-center justify-center">
           <div className="absolute inset-0 bg-neon-lime opacity-20 blur-lg rounded-full animate-pulse-slow"></div>
-          <svg viewBox="0 0 24 24" className="w-6 h-6 text-white relative z-10" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-        <div className="flex flex-col">
-          <h1 className="text-xs font-bold tracking-[0.2em] micro-copy text-white leading-none mb-0.5">MULTIVERSA</h1>
-          <div className="text-[8px] micro-copy text-slate-500 font-semibold tracking-widest leading-none">AGENCY OS</div>
+          <img
+            src="/Logotipo.svg"
+            alt="Multiversa"
+            className="h-8 md:h-10 w-auto relative z-10"
+          />
         </div>
       </div>
 
