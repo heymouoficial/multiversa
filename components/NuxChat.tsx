@@ -4,6 +4,7 @@ import { GoogleGenAI } from "@google/genai";
 import { X, Send, Mic, Sparkles, Terminal, Activity, MicOff, Copy, Check, Smartphone, Zap, Ticket, ArrowRight, ArrowLeft, Database, Fingerprint, Palette, Type, ChevronRight, UploadCloud, FileText, Link as LinkIcon, FileSpreadsheet } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { useLanguage } from '../contexts/LanguageContext';
+import { getRAGContext } from '../lib/vectorstore';
 
 interface Message {
     role: 'user' | 'model';
@@ -483,6 +484,14 @@ const NuxChat: React.FC<NuxChatProps> = ({ isOpen, onClose }) => {
         try {
             const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
+            // Get RAG context from vectorstore (anti-hallucination)
+            let ragContext = '';
+            try {
+                ragContext = await getRAGContext(textToSend, 'nux', 'knowledge');
+            } catch (ragError) {
+                console.warn('RAG context unavailable:', ragError);
+            }
+
             const systemInstruction = language === 'es'
                 ? `Actúa como Nux, la IA Central de Multiversa. Eres una App Interactiva de Prospección en formato chat.
            
@@ -499,6 +508,8 @@ const NuxChat: React.FC<NuxChatProps> = ({ isOpen, onClose }) => {
            5. Si dicen "Comenzar Proyecto" o "Métodos de Pago": Responde: "Iniciando módulo de transacción segura:" y agrega el tag [WIDGET:PAYMENT].
 
            ESTILO: Tecnológico, Conciso, "App-like".
+           
+           ${ragContext ? `\n--- CONTEXTO DE LA BASE DE CONOCIMIENTO ---\n${ragContext}\n--- USA ESTE CONTEXTO PARA RESPONDER CON PRECISIÓN ---` : ''}
            `
                 : `Act as Nux, Multiversa's Central AI. You are an Interactive Prospecting App in chat format.
 
@@ -511,7 +522,9 @@ const NuxChat: React.FC<NuxChatProps> = ({ isOpen, onClose }) => {
               "**NanoOS ($199)**: Landing + Nux Lead Gen.
                **SmartOS ($399)**: Nano + Lumina Insights + Dashboard."
            4. "NanoOS"/"SmartOS": Confirm choice. Say "Select 'Start Project' to begin brand vectorization."
-           5. "Start Project"/"Payment Methods": Reply "Initiating secure transaction module:" and add tag [WIDGET:PAYMENT].`;
+           5. "Start Project"/"Payment Methods": Reply "Initiating secure transaction module:" and add tag [WIDGET:PAYMENT].
+           
+           ${ragContext ? `\n--- KNOWLEDGE BASE CONTEXT ---\n${ragContext}\n--- USE THIS CONTEXT TO RESPOND ACCURATELY ---` : ''}`;
 
             const response = await ai.models.generateContent({
                 model: 'gemini-3-flash-preview',
