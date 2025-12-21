@@ -252,6 +252,26 @@ h4 {
     }
 }
 
+/* EXTRA SMALL SCREENS: Compact dock for 360px devices */
+@media (max-width: 400px) {
+    .dock-container {
+        padding: 0.25rem;
+        gap: 0.25rem;
+        border-radius: 1.5rem;
+    }
+
+    .dock-item {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 1rem;
+    }
+
+    .dock-item svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
 /* DESKTOP BEHAVIOR: Expansion Style */
 @media (min-width: 768px) {
     .dock-item.active {
