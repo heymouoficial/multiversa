@@ -568,32 +568,38 @@ const NuxChat: React.FC<NuxChatProps> = ({ isOpen, onClose }) => {
 
     return (
         <div
-            style={{ right: '2rem', left: 'auto' }}
-            className="fixed z-[200] bottom-24 top-24 w-[400px] md:h-[650px]
+            className="fixed z-[200] 
+                    inset-x-2 bottom-20 top-20
+                    md:inset-auto md:right-8 md:bottom-24 md:top-24 md:w-[400px]
                     flex flex-col app-window !bg-opal-black/95 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,217,255,0.15)] border border-turquoise/20 animate-[float_0.3s_ease-out]">
 
             <div className="absolute inset-0 bg-gradient-to-b from-turquoise/[0.02] to-transparent pointer-events-none"></div>
 
             {/* Header */}
-            <div className="window-header justify-between bg-turquoise/[0.05] border-b border-turquoise/10 py-3 flex-shrink-0 cursor-grab active:cursor-grabbing">
-                <div className="flex items-center gap-3">
-                    <div className="relative">
-                        {/* Nux Avatar */}
-                        <div className="w-9 h-9 rounded-lg bg-black border border-turquoise/40 flex items-center justify-center overflow-hidden relative shadow-[0_0_15px_rgba(0,217,255,0.3)]">
-                            <Terminal size={18} className="text-turquoise relative z-10" />
-                            <div className="absolute inset-0 bg-turquoise/20 animate-pulse"></div>
-                        </div>
-                        <div className="absolute -bottom-1 -right-1 w-2.5 h-2.5 bg-neon-lime rounded-full border-2 border-opal-black animate-pulse"></div>
-                    </div>
-                    <div>
-                        <div className="text-[13px] font-bold text-white tracking-wide font-jakarta flex items-center gap-2">
+            <div className="window-header justify-between bg-turquoise/[0.05] border-b border-turquoise/10 py-2 md:py-3 flex-shrink-0">
+                <div className="flex items-center gap-2 md:gap-3 overflow-hidden">
+                    {/* Logo Multiversa - max 70px height */}
+                    <img
+                        src="/Logotipo.svg"
+                        alt="Multiversa"
+                        className="h-8 md:h-10 max-h-[70px] w-auto object-contain flex-shrink-0"
+                    />
+                    <div className="hidden md:block">
+                        <div className="text-[11px] font-bold text-white tracking-wide font-jakarta flex items-center gap-2">
                             NUX_AGENT
-                            <span className="px-1.5 py-0.5 rounded bg-turquoise/20 text-turquoise text-[9px] font-mono">v2.5</span>
+                            <span className="px-1.5 py-0.5 rounded bg-turquoise/20 text-turquoise text-[8px] font-mono">v2.5</span>
                         </div>
-                        <div className="text-[9px] micro-copy text-slate-400">PROSPECTION_APP</div>
+                        <div className="text-[8px] micro-copy text-slate-400">PROSPECTION_APP</div>
+                    </div>
+                    {/* Mobile-only compact label */}
+                    <div className="md:hidden">
+                        <div className="text-[10px] font-bold text-white tracking-wide font-jakarta flex items-center gap-1">
+                            NUX
+                            <span className="px-1 py-0.5 rounded bg-turquoise/20 text-turquoise text-[7px] font-mono">v2.5</span>
+                        </div>
                     </div>
                 </div>
-                <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition-colors">
+                <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition-colors flex-shrink-0">
                     <X size={18} />
                 </button>
             </div>
