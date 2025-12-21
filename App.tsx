@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Home, Zap, Shield, Sparkles, Layout, Calculator, HelpCircle, MessageSquare, ChevronRight, Activity, Terminal } from 'lucide-react';
+import { Home, Zap, Shield, Sparkles, Layout, Calculator, HelpCircle, MessageSquare, ChevronRight, Activity, Terminal, X, Bot } from 'lucide-react';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import AuraBackground from './components/AuraBackground';
 import Hero from './sections/Hero';
@@ -9,6 +9,35 @@ import Agents from './sections/Agents';
 import CalculaTu from './sections/CalculaTu';
 import Pricing from './sections/Pricing';
 import FAQ from './sections/FAQ';
+import NuxChat from './components/NuxChat';
+
+const ChatTrigger = ({ toggleChat, isChatOpen }: { toggleChat: () => void, isChatOpen: boolean }) => {
+    return (
+        <button
+            onClick={toggleChat}
+            className={`fixed z-[160] 
+                        bottom-24 right-4 
+                        md:bottom-8 md:right-8
+                        w-14 h-14 rounded-2xl flex items-center justify-center 
+                        backdrop-blur-xl border transition-all duration-500 hover:scale-105
+                        shadow-[0_10px_40px_rgba(0,0,0,0.5)]
+                        ${isChatOpen 
+                            ? 'bg-white text-black border-white shadow-[0_0_30px_rgba(255,255,255,0.3)] rotate-90' 
+                            : 'bg-opal-black/80 border-turquoise/30 text-turquoise shadow-[0_0_20px_rgba(0,217,255,0.15)] hover:shadow-[0_0_40px_rgba(0,217,255,0.3)] hover:bg-turquoise/10 hover:border-turquoise'
+                        }`}
+        >
+            <div className="relative">
+                {isChatOpen ? <X size={24} /> : <Bot size={28} strokeWidth={1.5} />}
+                {!isChatOpen && (
+                    <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-lime opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-neon-lime"></span>
+                    </span>
+                )}
+            </div>
+        </button>
+    );
+};
 
 const Dock = () => {
   const { t } = useLanguage();
@@ -58,10 +87,6 @@ const Dock = () => {
             <span className="dock-label">{item.label}</span>
           </button>
         ))}
-        <div className="w-px h-6 bg-white/10 mx-1 self-center" />
-        <button className="dock-item text-turquoise hover:bg-turquoise/10 transition-all">
-          <MessageSquare size={18} />
-        </button>
     </div>
   );
 };
@@ -70,33 +95,33 @@ const Header = () => {
     const { language, toggleLanguage } = useLanguage();
     
     return (
-      <header className="sticky top-0 z-50 w-full px-6 md:px-12 py-4 max-w-7xl mx-auto flex justify-between items-center bg-opal-black/90 backdrop-blur-lg border-b border-white/5 transition-all">
+      <header className="fixed top-4 md:top-6 left-0 right-0 z-50 w-[92%] md:w-full max-w-5xl mx-auto px-6 py-3 flex justify-between items-center bg-opal-black/70 backdrop-blur-xl border border-white/10 rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-all">
          <div className="flex items-center gap-3 group cursor-default">
             <div className="relative w-8 h-8 flex items-center justify-center">
                <div className="absolute inset-0 bg-neon-lime opacity-20 blur-lg rounded-full animate-pulse-slow"></div>
-               <svg viewBox="0 0 24 24" className="w-8 h-8 text-white relative z-10" fill="none" stroke="currentColor" strokeWidth="2">
+               <svg viewBox="0 0 24 24" className="w-6 h-6 text-white relative z-10" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" strokeLinecap="round" strokeLinejoin="round"/>
                </svg>
             </div>
-            <div>
-               <h1 className="text-sm font-bold tracking-[0.2em] micro-copy text-white">MULTIVERSA</h1>
-               <div className="text-[9px] micro-copy text-slate-500 font-semibold tracking-widest">AGENCY OS</div>
+            <div className="flex flex-col">
+               <h1 className="text-xs font-bold tracking-[0.2em] micro-copy text-white leading-none mb-0.5">MULTIVERSA</h1>
+               <div className="text-[8px] micro-copy text-slate-500 font-semibold tracking-widest leading-none">AGENCY OS</div>
             </div>
          </div>
 
-         <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-white/5 bg-white/[0.02]">
+         <div className="flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full border border-white/5 bg-white/[0.02]">
                 <div className="w-1.5 h-1.5 rounded-full bg-turquoise animate-pulse"></div>
-                <span className="text-[10px] micro-copy font-medium text-slate-500">v1.0.4-beta</span>
+                <span className="text-[9px] micro-copy font-medium text-slate-500">v1.0.4-beta</span>
             </div>
             
             <button 
                 onClick={toggleLanguage}
-                className="flex items-center gap-2 px-3 py-1 rounded-full border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all cursor-pointer"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/5 bg-white/[0.05] hover:bg-white/10 transition-all cursor-pointer group"
             >
-                <span className={`text-lg grayscale hover:grayscale-0 transition-all ${language === 'en' ? 'opacity-100' : 'opacity-40'}`}>🇺🇸</span>
+                <span className={`text-sm grayscale group-hover:grayscale-0 transition-all ${language === 'en' ? 'opacity-100' : 'opacity-40'}`}>🇺🇸</span>
                 <div className="w-px h-3 bg-white/10"></div>
-                <span className={`text-lg grayscale hover:grayscale-0 transition-all ${language === 'es' ? 'opacity-100' : 'opacity-40'}`}>🇻🇪</span>
+                <span className={`text-sm grayscale group-hover:grayscale-0 transition-all ${language === 'es' ? 'opacity-100' : 'opacity-40'}`}>🇻🇪</span>
             </button>
          </div>
       </header>
@@ -107,7 +132,7 @@ const MainContent = () => {
     const { t } = useLanguage();
     
     return (
-        <main className="relative z-10 px-6 md:px-12 max-w-7xl mx-auto space-y-48 pt-12">
+        <main className="relative z-10 px-6 md:px-12 max-w-7xl mx-auto space-y-48 pt-32">
             <div id="hero"><Hero /></div>
             
             <div id="proceso"><Process /></div>
@@ -223,12 +248,16 @@ const Footer = () => {
 };
 
 const App: React.FC = () => {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
   return (
     <LanguageProvider>
         <div className="relative min-h-screen selection:bg-neon-lime selection:text-black font-inter bg-opal-black overflow-hidden pb-32">
           <AuraBackground />
           <Header />
           <Dock />
+          <ChatTrigger toggleChat={() => setIsChatOpen(!isChatOpen)} isChatOpen={isChatOpen} />
+          <NuxChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
           <MainContent />
           <Footer />
         </div>
