@@ -1,0 +1,265 @@
+@import "tailwindcss";
+
+:root {
+    --neon-lime: #c0ff00;
+    --turquoise: #00d9ff;
+    --opal: #020202;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #020202;
+    color: #f1f5f9;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600 !important;
+}
+
+.micro-copy {
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+@theme {
+    --font-jakarta: "Plus Jakarta Sans", sans-serif;
+    --font-inter: "Inter", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+
+    --color-neon-lime: #c0ff00;
+    --color-turquoise: #00d9ff;
+    --color-opal-black: #020202;
+    --color-opal-darker: #000000;
+    --color-calculatu-brand: #00DC82;
+
+    --animate-scan: scan 4s ease-in-out infinite;
+    --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-float: float 6s ease-in-out infinite;
+    --animate-float-delayed: float 6s ease-in-out 3s infinite;
+    --animate-shimmer: shimmer 2s linear infinite;
+
+    @keyframes scan {
+
+        0%,
+        100% {
+            transform: translateY(-100%);
+        }
+
+        50% {
+            transform: translateY(100%);
+        }
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    @keyframes shimmer {
+        0% {
+            backgroundPosition: -200% 0;
+        }
+
+        100% {
+            backgroundPosition: 200% 0;
+        }
+    }
+}
+
+@keyframes aura-float {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.08;
+    }
+
+    50% {
+        transform: translate(-40px, 60px) scale(1.1);
+        opacity: 0.15;
+    }
+}
+
+.aura-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(180px);
+    animation: aura-float 25s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Esmerilado Profundo (Deep Frosting) */
+.glass-card {
+    background: rgba(255, 255, 255, 0.005);
+    backdrop-filter: blur(80px);
+    -webkit-backdrop-filter: blur(80px);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 1.5rem;
+}
+
+.liquid-glass {
+    background: rgba(255, 255, 255, 0.015);
+    backdrop-filter: blur(48px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.01);
+}
+
+.app-window {
+    background: #050505;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+    overflow: hidden;
+    /* position removed to allow Tailwind fixed/absolute to work */
+}
+
+.window-header {
+    background: rgba(255, 255, 255, 0.01);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.window-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c0ff00, transparent);
+    opacity: 0.5;
+    z-index: 20;
+    animation: scan 3s ease-in-out infinite;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: #020202;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #111111;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #c0ff00;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #00d9ff, #c0ff00);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dock-container {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    padding: 0.4rem;
+    background: rgba(4, 4, 4, 0.4);
+    backdrop-filter: blur(64px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 2rem;
+    display: flex;
+    gap: 0.5rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Ensure it doesn't overflow horizontally on very small screens */
+    max-width: 95vw;
+    overflow-x: auto;
+    /* Hide scrollbar for the dock itself if it ever overflows */
+    scrollbar-width: none;
+}
+
+.dock-container::-webkit-scrollbar {
+    display: none;
+}
+
+.dock-item {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #334155;
+    transition: all 0.3s ease;
+    position: relative;
+    background: transparent;
+    flex-shrink: 0;
+    /* Prevent shrinking */
+}
+
+.dock-item.active {
+    background: rgba(192, 255, 0, 0.06);
+    color: #c0ff00;
+}
+
+.dock-label {
+    display: none;
+    font-size: 0.65rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+}
+
+/* MOBILE BEHAVIOR: Tooltip Style */
+@media (max-width: 767px) {
+    .dock-item.active .dock-label {
+        display: block;
+        position: absolute;
+        bottom: 110%;
+        /* Place above the icon */
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(5, 5, 5, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0.3rem 0.6rem;
+        border-radius: 0.5rem;
+        white-space: nowrap;
+        backdrop-filter: blur(8px);
+        color: #c0ff00;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+        z-index: 10;
+    }
+}
+
+/* DESKTOP BEHAVIOR: Expansion Style */
+@media (min-width: 768px) {
+    .dock-item.active {
+        width: 8.5rem;
+    }
+
+    .dock-item.active .dock-label {
+        display: block;
+        margin-left: 0.5rem;
+    }
+}
