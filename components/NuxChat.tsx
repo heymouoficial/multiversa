@@ -698,34 +698,34 @@ const NuxChat: React.FC<NuxChatProps> = ({ isOpen, onClose }) => {
                 </div>
             )}
 
-            {/* Input Area */}
-            <div className="p-4 border-t border-white/5 bg-opal-black/50 backdrop-blur-md flex-shrink-0">
-                <div className="relative flex items-center gap-2">
+            {/* Input Area - Compact for mobile */}
+            <div className="p-3 md:p-4 border-t border-white/5 bg-opal-black/50 backdrop-blur-md flex-shrink-0">
+                <div className="relative flex items-center gap-1.5 md:gap-2">
                     <input
                         type="text"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                         placeholder={language === 'es' ? "Escribe o selecciona una opción..." : "Type or select an option..."}
-                        className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-turquoise/30 transition-all font-inter shadow-inner"
+                        className="flex-1 min-w-0 bg-white/5 border border-white/10 rounded-xl px-3 md:px-4 py-2.5 md:py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-turquoise/30 transition-all font-inter"
                     />
 
                     <button
                         onClick={toggleListening}
-                        className={`p-3 rounded-xl border transition-all ${isListening ? 'bg-neon-lime/20 border-neon-lime text-neon-lime' : 'bg-white/5 border-white/10 text-slate-400 hover:text-white hover:bg-white/10'}`}
+                        className={`p-2.5 md:p-3 rounded-xl border transition-all flex-shrink-0 ${isListening ? 'bg-neon-lime/20 border-neon-lime text-neon-lime' : 'bg-white/5 border-white/10 text-slate-400 hover:text-white hover:bg-white/10'}`}
                     >
-                        {isListening ? <MicOff size={18} /> : <Mic size={18} />}
+                        {isListening ? <MicOff size={16} className="md:w-[18px] md:h-[18px]" /> : <Mic size={16} className="md:w-[18px] md:h-[18px]" />}
                     </button>
 
                     <button
                         onClick={() => handleSend()}
                         disabled={!input.trim()}
-                        className="p-3 bg-turquoise text-black rounded-xl hover:bg-turquoise/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_15px_rgba(0,217,255,0.2)]"
+                        className="p-2.5 md:p-3 bg-turquoise text-black rounded-xl hover:bg-turquoise/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_15px_rgba(0,217,255,0.2)] flex-shrink-0"
                     >
-                        <Send size={18} />
+                        <Send size={16} className="md:w-[18px] md:h-[18px]" />
                     </button>
                 </div>
-                <div className="text-[8px] text-center text-slate-600 mt-2 font-mono">
+                <div className="text-[7px] md:text-[8px] text-center text-slate-600 mt-1.5 md:mt-2 font-mono">
                     {language === 'es' ? 'Nux v2.5 // Sistema de Filtrado Activo.' : 'Nux v2.5 // Active Filtering System.'}
                 </div>
             </div>
