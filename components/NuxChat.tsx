@@ -623,8 +623,8 @@ const NuxChat: React.FC<NuxChatProps> = ({ isOpen, onClose }) => {
                     <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-[float_0.3s_ease-out]`}>
 
                         {msg.role === 'model' && !msg.isWidget && (
-                            <div className="w-6 h-6 rounded bg-turquoise/10 flex-shrink-0 mr-3 mt-1 flex items-center justify-center border border-turquoise/20">
-                                <Terminal size={12} className="text-turquoise" />
+                            <div className="w-8 h-8 rounded-full flex-shrink-0 mr-3 mt-1 overflow-hidden border-2 border-turquoise/30 shadow-[0_0_10px_rgba(0,217,255,0.2)]">
+                                <img src="/nux-avatar.png" alt="Nux" className="w-full h-full object-cover" />
                             </div>
                         )}
 
@@ -667,8 +667,8 @@ const NuxChat: React.FC<NuxChatProps> = ({ isOpen, onClose }) => {
 
                 {isThinking && (
                     <div className="flex justify-start">
-                        <div className="w-6 h-6 rounded bg-turquoise/10 flex-shrink-0 mr-3 mt-1 flex items-center justify-center border border-turquoise/20">
-                            <Terminal size={12} className="text-turquoise" />
+                        <div className="w-8 h-8 rounded-full flex-shrink-0 mr-3 mt-1 overflow-hidden border-2 border-turquoise/30 shadow-[0_0_10px_rgba(0,217,255,0.2)] animate-pulse">
+                            <img src="/nux-avatar.png" alt="Nux" className="w-full h-full object-cover" />
                         </div>
                         <div className="bg-[#0a0f18] border border-turquoise/10 rounded-2xl rounded-tl-sm p-4 flex items-center gap-3">
                             <Sparkles size={14} className="text-turquoise animate-spin" />
