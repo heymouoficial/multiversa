@@ -1,0 +1,7 @@
+{
+  "name": "Multiversa Agency - Ecosistema de Empleados Digitales",
+  "description": "Prototipo interactivo de alta fidelidad para Multiversa Agency y su producto estrella CalculaTú, enfocado en empleados digitales cognitivos.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
